@@ -20,7 +20,8 @@ import {
   Trophy,
   Target,
 } from "lucide-react"
-import Link from "next/link"
+import { useLocale, useTranslations } from 'next-intl';
+import { usePathname, useRouter, Link } from '@/i18n/routing'; 
 
 const services = [
   {
@@ -161,6 +162,12 @@ function GlassmorphismHero() {
 }
 
 export default function LandingPage() {
+  const t = useTranslations(); 
+  const locale = useLocale();
+  const pathname = usePathname();
+  const nextLocale = locale === 'vi' ? 'en' : 'vi';
+  
+  
   return (
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
       <div className="min-h-screen bg-background text-foreground">
@@ -176,21 +183,24 @@ export default function LandingPage() {
 
             <nav className="hidden md:flex items-center space-x-8">
               <Link href="#services" className="text-muted-foreground hover:text-foreground transition-colors">
-                Services
+              {t('services')}
               </Link>
               <Link href="#about" className="text-muted-foreground hover:text-foreground transition-colors">
-                About
+              {t('about')}
               </Link>
               <Link href="#contact" className="text-muted-foreground hover:text-foreground transition-colors">
-                Contact
+              {t('contact')}
               </Link>
             </nav>
 
             <div className="flex items-center space-x-4">
               <ModeToggle />
-              <Button variant="outline" size="sm">
-                Get Quote
+              <Button asChild variant="outline" size="sm">
+                <Link href={pathname} locale={nextLocale}>
+                  {nextLocale.toUpperCase()}
+                </Link>
               </Button>
+
             </div>
           </div>
         </header>

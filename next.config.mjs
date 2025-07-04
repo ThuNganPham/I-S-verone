@@ -1,3 +1,6 @@
+import withNextIntl from 'next-intl/plugin';
+import nextIntlConfig from './next-intl.config.mjs';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: {
@@ -9,6 +12,6 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-}
+};
 
-export default nextConfig
+export default withNextIntl(nextIntlConfig)(nextConfig);
